@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aloura Fashion Store Online</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Cairo',sans-serif;background:#f4f4f4}
+header{background:#000;color:#fff;padding:15px 30px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+header h1{margin:0;color:#f5c542}
+nav a{color:#fff;margin-right:15px;text-decoration:none;font-weight:bold}
+.social-header a{margin-right:10px;vertical-align:middle}
+.hero{background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),url('https://via.placeholder.com/1400x500') center/cover;color:#fff;text-align:center;padding:90px 20px}
+.hero h2{font-size:36px;color:#f5c542}
+.btn-main{background:#f5c542;color:#000;padding:12px 25px;border-radius:25px;text-decoration:none;font-weight:bold}
+.container{padding:40px}
+.section-title{text-align:center;margin-bottom:30px}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px}
+.card{background:#fff;border-radius:15px;box-shadow:0 4px 10px rgba(0,0,0,.1);overflow:hidden;text-align:center;padding-bottom:15px}
+.card img{width:100%;height:220px;object-fit:cover}
+.card h3{margin:10px}
+.price{color:#e91e63;font-size:18px;font-weight:bold}
+select,input,button{margin:6px;padding:8px;border-radius:8px;border:1px solid #ccc;width:100%}
+button{background:#000;color:#fff;cursor:pointer}
+.features,.reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.box{background:#fff;padding:20px;border-radius:12px;text-align:center}
+.cart{position:fixed;top:80px;left:20px;background:#fff;padding:15px;border-radius:12px;width:260px;box-shadow:0 4px 10px rgba(0,0,0,.2)}
+.cart h3{text-align:center}
+footer{background:#000;color:#fff;text-align:center;padding:25px;margin-top:40px}
+.footer-social{margin-top:10px}
+.footer-social a{color:#f5c542;text-decoration:none;margin:0 8px}
+.whatsapp{position:fixed;bottom:20px;right:20px;background:#25D366;color:#fff;padding:15px 18px;border-radius:50%;font-size:22px;text-decoration:none}
+</style>
+</head>
+<body>
+
+<header>
+<h1>👟 Aloura</h1>
+<nav>
+<a href="#products">المنتجات</a>
+<a href="#offers">الخدمات</a>
+<a href="#reviews">آراء العملاء</a>
+<a href="#contact">تواصل</a>
+<span class="social-header">
+<a href="https://www.facebook.com/share/182juKuKGd/">FB</a>
+<a href="https://www.instagram.com/alo_ura1?igsh=MWdmeDI2MnR2OWN4bw==">IG</a>
+<a href="https://www.tiktok.com/@aloura005?_r=1&_t=ZS-92UlCvzL6MJ">TikTok</a>
+</span>
+</nav>
+</header>
+
+<section class="hero">
+<h2>Aloura Fashion Store Online</h2>
+<p>اختاري – أضيفي للسلة – اطلبي على واتساب</p>
+<a class="btn-main" href="#products">ابدئي التسوق</a>
+</section>
+
+<div class="cart">
+<h3>🛒 السلة</h3>
+<ul id="cartItems"></ul>
+<p><b>الإجمالي:</b> <span id="total">0</span> جنيه</p>
+</div>
+
+<div class="container">
+<h2 class="section-title" id="products">منتجاتنا</h2>
+<div class="products">
+<div class="card">
+<img src="images/shoe1.jpg" alt="حذاء رياضي">
+<h3>حذاء رياضي</h3>
+<p class="price">800</p>
+<select id="s1"><option>38</option><option>39</option><option>40</option></select>
+<button onclick="addToCart('حذاء رياضي',800,document.getElementById('s1').value)">أضف للسلة</button>
+</div>
+<div class="card">
+<img src="images/shoe2.jpg" alt="حذاء كاجوال">
+<h3>حذاء كاجوال</h3>
+<p class="price">650</p>
+<select id="s2"><option>37</option><option>38</option><option>39</option></select>
+<button onclick="addToCart('حذاء كاجوال',650,document.getElementById('s2').value)">أضف للسلة</button>
+</div>
+<div class="card">
+<img src="images/shoe3.jpg" alt="حذاء رسمي">
+<h3>حذاء رسمي</h3>
+<p class="price">950</p>
+<select id="s3"><option>40</option><option>41</option><option>42</option></select>
+<button onclick="addToCart('حذاء رسمي',950,document.getElementById('s3').value)">أضف للسلة</button>
+</div>
+</div>
+
+<h2 class="section-title">بيانات العميل</h2>
+<input type="text" id="custName" placeholder="الاسم بالكامل">
+<input type="text" id="custPhone" placeholder="رقم التليفون">
+<input type="text" id="custAddress" placeholder="العنوان">
+<select id="custCity">
+<option value="">اختر المحافظة</option>
+<option value="القاهرة">القاهرة</option>
+<option value="الجيزة">الجيزة</option>
+<option value="الإسكندرية">الإسكندرية</option>
+<option value="الدلتا">الدلتا</option>
+<option value="الباقي">باقي المحافظات</option>
+</select>
+<button onclick="sendOrder()">اطلب عبر واتساب</button>
+
+<h2 class="section-title" id="offers">خدماتنا</h2>
+<div class="features">
+<div class="box">🚚 توصيل لكل المحافظات</div>
+<div class="box">💳 دفع عند الاستلام</div>
+<div class="box">🔄 استبدال خلال 14 يوم</div>
+<div class="box">⭐ جودة مضمونة</div>
+</div>
+
+<h2 class="section-title" id="reviews">آراء العملاء</h2>
+<div class="reviews">
+<div class="box">⭐⭐⭐⭐⭐<br>خدمة ممتازة</div>
+<div class="box">⭐⭐⭐⭐⭐<br>سريع ومقاس مظبوط</div>
+<div class="box">⭐⭐⭐⭐⭐<br>أنصح بيه</div>
+</div>
+
+<div class="box" id="contact">
+<h2>تواصل معنا</h2>
+<p>📞 01558151740</p>
+<p>📍 القاهرة – مصر</p>
+</div>
+
+<footer>
+<p>© 2025 Aloura At Engineer Ahmed Hani</p>
+<div class="footer-social">
+<a href="https://www.facebook.com/share/182juKuKGd/">Facebook</a> |
+<a href="https://www.instagram.com/alo_ura1?igsh=MWdmeDI2MnR2OWN4bw==">Instagram</a> |
+<a href="https://www.tiktok.com/@aloura005?_r=1&_t=ZS-92UlCvzL6MJ"_blank">TikTok</a>
+</div>
+</footer>
+
+<a class="whatsapp" href="https://wa.me/201558151740">💬</a>
+
+<script>
+let cart=[];
+let total=0;
+
+function addToCart(name, price, size){
+    cart.push({name, price, size});
+    total += price;
+    renderCart();
+}
+
+function renderCart(){
+    let list=document.getElementById('cartItems');
+    list.innerHTML='';
+    cart.forEach(i=>{
+        list.innerHTML+=`<li>${i.name} - مقاس ${i.size} - ${i.price}ج</li>`;
+    });
+    document.getElementById('total').innerText=total;
+}
+
+function sendOrder(){
+    let name=document.getElementById('custName').value;
+    let phone=document.getElementById('custPhone').value;
+    let address=document.getElementById('custAddress').value;
+    let city=document.getElementById('custCity').value;
+
+    if(!name || !phone || !address || !city){
+        alert('من فضلك املأ كل البيانات');
+        return;
+    }
+
+    // مصاريف الشحن حسب المحافظة
+    let shippingCost = 0;
+    if(city==='القاهرة'){shippingCost=50;}
+    else if(city==='الجيزة'){shippingCost=70;}
+    else if(city==='الإسكندرية'){shippingCost=100;}
+    else if(city==='الدلتا'){shippingCost=150;}
+    else{shippingCost=200;}
+
+    let msg='طلب جديد:%0A';
+    msg+='الاسم: '+name+'%0A';
+    msg+='الهاتف: '+phone+'%0A';
+    msg+='العنوان: '+address+'%0A';
+    msg+='المحافظة: '+city+'%0A%0A';
+    cart.forEach(i=>{msg+=`${i.name} مقاس ${i.size} - ${i.price}ج%0A`});
+    msg+=`مصاريف الشحن: ${shippingCost} جنيه%0A`;
+    msg+=`الإجمالي: ${total + shippingCost} جنيه`;
+
+    // ضع رقمك هنا
+    window.open('https://wa.me/201558151740?text='+msg);
+}
+</script>
+
+</body>
+</html>
